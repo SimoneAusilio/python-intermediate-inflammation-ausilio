@@ -2,9 +2,8 @@
 
 import numpy as np
 import numpy.testing as npt
-
 import pytest
-from inflammation.models import daily_mean, daily_max, daily_min, patient_normalise
+from inflammation.models import daily_mean, daily_max, daily_min, daily_std, patient_normalise
 
 @pytest.mark.parametrize(
     "test, expected",
@@ -71,3 +70,14 @@ def test_daily_max(func, test, expected):
     Tests that max function works for an array of positive integers.
     npt.assert_array_equal(func(np.array(test)), np.array(expected))
 """
+
+@pytest.mark.parametrize('data, expected_standard_deviation', [
+    ([0, 0, 0], 0.0),
+    ([1.0, 1.0, 1.0], 0),
+    ([0.0, 2.0], 1.0),
+    ([[0, 0, 0], [1, 2, 3]], [0.5, 1, 1.5]),
+    ([[np.nan, 1, np.nan], [0, np.nan, np.nan]], [0, 0, np.nan])
+])
+def test_daily_standard_deviation(data, expected_standard_deviation):
+    result_data = daily_std(data)
+    npt.assert_approx_equal(result_data, expected_standard_deviation)
