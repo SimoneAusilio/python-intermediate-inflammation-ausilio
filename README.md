@@ -1,5 +1,5 @@
 # Inflam
-![Continuous Integration build in GitHub Actions](https://github.com/<your_github_username>/python-intermediate-inflammation/actions/workflows/main.yml/badge.svg?branch=main)
+![Continuous Integration build in GitHub Actions](https://github.com/SimoneAusilio/python-intermediate-inflammation/actions/workflows/main.yml/badge.svg?branch=main)
 Inflam is a data management system written in Python that manages trial data used in clinical inflammation studies.
 
 ## Main features
