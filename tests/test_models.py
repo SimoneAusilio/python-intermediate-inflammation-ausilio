@@ -3,11 +3,11 @@
 import numpy as np
 import numpy.testing as npt
 import pytest
+from inflammation.models import daily_mean, daily_std
 
 
 def test_daily_mean_zeros():
     """Test that mean function works for an array of zeros."""
-    from inflammation.models import daily_mean
 
     test_input = np.array([[0, 0],
                            [0, 0],
@@ -20,7 +20,6 @@ def test_daily_mean_zeros():
 
 def test_daily_mean_integers():
     """Test that mean function works for an array of positive integers."""
-    from inflammation.models import daily_mean
 
     test_input = np.array([[1, 2],
                            [3, 4],
@@ -34,9 +33,10 @@ def test_daily_mean_integers():
 @pytest.mark.parametrize('data, expected_standard_deviation', [
     ([0, 0, 0], 0.0),
     ([1.0, 1.0, 1.0], 0),
-    ([0.0, 2.0], 1.0)
+    ([0.0, 2.0], 1.0),
+    ([[0, 0, 0], [1, 2, 3]], [0.5, 1, 1.5]),
+    ([[np.nan, 1, np.nan], [0, np.nan, np.nan]], [0, 0, np.nan])
 ])
 def test_daily_standard_deviation(data, expected_standard_deviation):
-    from inflammation.models import s_dev
-    result_data = s_dev(data)['standard deviation']
+    result_data = daily_std(data)
     npt.assert_approx_equal(result_data, expected_standard_deviation)

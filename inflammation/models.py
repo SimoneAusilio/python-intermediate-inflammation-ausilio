@@ -10,7 +10,7 @@ and each column represents a single day across all patients.
 import numpy as np
 
 
-def load_csv(filename):  
+def load_csv(filename):
     """Load a Numpy array from a CSV
 
     :param filename: Filename of CSV to load
@@ -34,11 +34,5 @@ def daily_min(data):
 
 
 def daily_std(data):
-    """Computes and returns standard deviation for data."""
-    m = np.mean(data, axis=0)  # mean of each column
-    devs = []
-    for entry in data:
-        devs.append((entry - m) * (entry - m))
-
-    s_dev2 = sum(devs) / len(data)
-    return {'standard deviation': s_dev2}
+    """Calculate the daily standard deviation of a 2d inflammation data array."""
+    return np.std(data, axis=0)
